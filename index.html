@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matheus Mendes — Desenvolvedor Python · Backend · Dados</title>
+<meta name="description" content="Portfólio profissional de Matheus Mendes, desenvolvedor Python com foco em automação, backend e dados.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Archivo+Expanded:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PORTFOLIO MATHEUS MENDES — documento tecnico oficial vivo
+   ============================================================
+   THESIS: Um documento tecnico/parecer oficial brasileiro que
+     vira portfolio de dev — a ironia de quem automatizou o
+     proprio trabalho no Detran. Recusa o template de portfolio
+     de IA (hero com gradiente, cards iguais, serif italico).
+   OWN-WORLD: papel tecnico azul-cinza claro, tinta azul-escura
+     de formulario, carimbo laranja de aprovacao, vermelho de
+     bloqueio, verde de deferimento; grade de linhas de guia,
+     fichas numeradas como processos, tipografia Archivo
+     Expanded (capitular) + Archivo (corpo) + JetBrains Mono
+     (dados e codigo reais).
+   STORY: recrutador entende em 5s quem e o candidato, ve
+     trabalho real (codigo e projetos funcionais com impacto),
+     e sabe exatamente como conversar com ele.
+   FIRST VIEWPORT: folha de rosto com numeracao de documento,
+     carimbo "DISPONIVEL PARA CONTRATACAO", nome em capitular,
+     uma linha de posicionamento que prova a tese, bloco de
+     codigo REAL do RPA Detran, acoes de contato (email/tel).
+   FORM: direcao 7 da lista grounded (documento oficial),
+     seed key 4f2b61ec; challenger teletext competitive doou a
+     gramatica de grade/caracteres e a numeracao por subpags.
+   FINISH: unreviewed and undocumented is unfinished; this
+     build ends with the finish review, the verdict, DESIGN.md,
+     and every shipping raster carrying its provenance.
+   ============================================================ */
+:root{
+  --paper:#E9EEF5;
+  --paper-2:#F4F7FB;
+  --paper-3:#DDE4EE;
+  --ink:#1B2A3A;
+  --ink-2:#3D5166;
+  --ink-3:#4F6276;
+  --line:#B9C6D6;
+  --line-strong:#8FA3BA;
+  --blue:#1B3A5C;
+  --blue-ink:#132B45;
+  --seal:#B04A0A;
+  --seal-ink:#6D2C04;
+  --ok:#1E6B3A;
+  --bad:#B3261E;
+  --mark:#F2B33D;
+  --max-w:1080px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --disp:'Archivo Expanded','Archivo',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--seal);color:#fff}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--paper-2)}
+::-webkit-scrollbar-thumb{background:var(--line-strong);border:3px solid var(--paper-2);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--blue)}
+input,textarea{caret-color:var(--seal)}
+a{color:var(--blue);text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:3px}
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--seal);
+  outline-offset:2px;
+  border-radius:2px;
+}
+.skip-link{
+  position:absolute;left:-999px;top:0;
+  background:var(--blue-ink);color:#fff;
+  padding:10px 16px;font-family:var(--mono);font-size:12px;
+  z-index:200;
+}
+.skip-link:focus{left:8px;top:8px}
+
+/* ---------- estrutura geral ---------- */
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}
+section{scroll-margin-top:16px}
+
+/* ---------- folha de rosto / hero ---------- */
+.cover{
+  position:relative;
+  border-bottom:2px double var(--line-strong);
+  padding:72px 0 56px;
+  background:
+    linear-gradient(90deg,transparent 99.6%,var(--line) 100%),
+    linear-gradient(transparent 99.2%,var(--line) 100%),
+    var(--paper);
+  background-size:56px 56px;
+}
+.cover .wrap{position:relative}
+.seal{
+  display:inline-block;
+  font-family:var(--disp);
+  font-weight:800;
+  font-size:16px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--seal-ink);
+  border:3px double var(--seal-ink);
+  padding:8px 18px;
+  transform:rotate(-3deg);
+  margin-bottom:24px;
+  background:var(--paper-3);
+  box-shadow:0 0 0 1px var(--seal);
+}
+.cover-title{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:28px;flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.cover-title .left{min-width:0}
+.cover h1{
+  font-family:var(--disp);
+  font-weight:800;
+  font-size:clamp(2.6rem,7vw,5.4rem);
+  line-height:1.02;
+  letter-spacing:-.03em;
+  color:var(--blue-ink);
+  max-width:16ch;
+  text-wrap:balance;
+}
+.cover .subtitle{
+  font-family:var(--mono);
+  font-size:16px;
+  letter-spacing:.04em;
+  color:var(--seal-ink);
+  margin-top:10px;
+}
+.cover .side-seal{flex:none;padding-top:6px}
+.cover .thesis{
+  font-size:20px;
+  line-height:1.45;
+  color:var(--ink);
+  max-width:66ch;
+  margin-bottom:10px;
+  font-weight:500;
+}
+.cover .thesis strong{color:var(--blue);font-weight:700}
+.cover .thesis em{font-style:normal;background:var(--mark);padding:0 4px;color:var(--blue-ink)}
+.cover-actions{
+  display:flex;gap:14px;flex-wrap:wrap;margin:28px 0 34px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:16px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;
+  padding:13px 22px;
+  border:2px solid var(--blue);
+  color:var(--blue-ink);
+  text-decoration:none;
+  background:transparent;
+  cursor:pointer;
+  transition:background .15s ease-out,color .15s ease-out,transform .1s ease-out;
+}
+.btn:hover{background:var(--blue);color:#fff}
+.btn:active{transform:translateY(1px)}
+.btn-seal{border-color:var(--seal);color:var(--seal-ink)}
+.btn-seal:hover{background:var(--seal-ink);color:#fff}
+.btn .arr{font-weight:400}
+
+.code-probe{
+  margin-top:10px;
+  background:var(--blue-ink);
+  color:#DCE7F5;
+  border:1px solid var(--blue);
+  border-radius:0 0 6px 6px;
+  font-family:var(--mono);
+  font-size:16px;
+  line-height:1.7;
+  overflow:hidden;
+  box-shadow:0 1px 2px rgba(19,43,69,.25);
+}
+.code-probe .cp-head{
+  display:flex;justify-content:space-between;gap:12px;
+  padding:8px 14px;
+  background:var(--seal-ink);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  font-size:12px;
+  letter-spacing:.03em;
+  color:#FFE2C7;
+}
+.code-probe pre{
+  padding:16px 18px;
+  overflow-x:auto;
+  tab-size:4;
+  max-width:100%;
+  white-space:pre;
+}
+.code-probe .cm{color:#7FA7CE}
+.code-probe .k{color:#FFC27A}
+.code-probe .s{color:#A9E3B0}
+.code-probe .n{color:#FF9D9D}
+.code-probe .f{color:#8FD3FF}
+
+/* ---------- sumario ---------- */
+.summary{
+  border-bottom:1px solid var(--line);
+  background:var(--paper-2);
+}
+.summary .wrap{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+  font-family:var(--mono);font-size:16px;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.summary a{
+  text-decoration:none;color:var(--ink-2);
+  padding:16px 10px;text-align:center;
+  border-right:1px solid var(--line);
+  display:flex;align-items:baseline;justify-content:center;gap:7px;
+  transition:background .15s ease-out,color .15s ease-out;
+}
+.summary a:last-child{border-right:none}
+.summary a:hover,.summary a:focus-visible{background:var(--blue);color:#fff}
+.summary .num{color:var(--seal-ink);font-weight:700}
+.summary a:hover .num{color:#FFD9B8}
+
+/* ---------- secoes gerais ---------- */
+.sec{padding:56px 0 64px;border-bottom:1px solid var(--line)}
+.sec-head{
+  display:flex;align-items:baseline;gap:16px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:14px;margin-bottom:34px;
+}
+.sec-num{
+  font-family:var(--mono);font-weight:700;font-size:16px;
+  color:var(--seal-ink);letter-spacing:.08em;
+}
+.sec-title{
+  font-family:var(--disp);font-weight:700;
+  font-size:24px;
+  letter-spacing:-.02em;
+  color:var(--blue-ink);
+  text-wrap:balance;
+}
+.sec-note{
+  margin-left:auto;
+  font-family:var(--mono);font-size:16px;
+  color:var(--ink-3);letter-spacing:.02em;
+  white-space:nowrap;
+}
+@media (max-width:860px){
+  .sec-note{margin-left:0;width:100%;white-space:normal}
+}
+p.body{max-width:72ch;color:var(--ink);margin-bottom:14px}
+.lead{
+  font-size:20px;line-height:1.5;color:var(--ink);
+  max-width:66ch;
+}
+.muted{color:var(--ink-3);font-size:16px}
+
+/* ---------- perfil ---------- */
+.profile-grid{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:40px;
+  align-items:start;
+}
+.form-block{
+  border:1px solid var(--line-strong);
+  background:var(--paper-2);
+  border-radius:4px;
+  overflow:hidden;
+}
+.form-block .fb-head{
+  font-family:var(--mono);font-size:12px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);
+  padding:10px 16px;
+  background:var(--paper-3);
+  border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;
+}
+.fb-row{
+  display:grid;grid-template-columns:150px 1fr;gap:0;
+  border-bottom:1px solid var(--line);
+  font-size:16px;
+}
+.fb-row:last-child{border-bottom:none}
+.fb-row dt{
+  padding:11px 16px;
+  font-family:var(--mono);font-size:12px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--ink-3);
+  border-right:1px solid var(--line);
+  background:rgba(255,255,255,.35);
+}
+.fb-row dd{padding:10px 16px;color:var(--ink)}
+.fb-row dd b{color:var(--blue-ink)}
+.tag-ok{color:var(--ok);font-weight:700;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.tag-bad{color:var(--bad);font-weight:700;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.dot-inline{
+  display:inline-block;width:9px;height:9px;border-radius:50%;
+  background:var(--ok);box-shadow:0 0 0 3px rgba(30,107,58,.18);
+  vertical-align:middle;margin-right:7px;
+}
+
+/* ---------- fichas de projeto ---------- */
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ficha{
+  position:relative;
+  border:1px solid var(--line-strong);
+  background:var(--paper-2);
+  border-radius:4px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .5s ease-out,transform .5s ease-out;
+}
+.ficha.in{opacity:1;transform:none}
+.ficha .stamp{
+  font-family:var(--disp);font-weight:800;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--seal-ink);
+  border:3px double var(--seal-ink);
+  padding:4px 10px;
+  transform:rotate(2deg);
+  opacity:0;
+  background:var(--paper-3);
+  margin-left:16px;
+  margin-right:0;
+  align-self:center;
+}
+.ficha.in .stamp{animation:stamp-appear .35s ease-out .35s forwards}
+@keyframes stamp-appear{
+  0%{opacity:0;transform:rotate(8deg) scale(1.7)}
+  60%{opacity:1;transform:rotate(-2deg) scale(.96)}
+  100%{opacity:1;transform:rotate(4deg) scale(1)}
+}
+.ficha-top{
+  display:flex;justify-content:flex-start;align-items:center;gap:12px;
+  flex-wrap:wrap;
+  padding:10px 14px;
+  border-bottom:1px solid var(--line);
+  background:var(--paper-3);
+  font-family:var(--mono);font-size:16px;
+  letter-spacing:.03em;
+  color:var(--ink-2);
+  min-height:44px;
+}
+.ficha-top .n{color:var(--seal-ink);font-weight:700}
+.ficha-top .cat-top{margin-left:14px}
+.ficha-body{padding:20px 20px 16px;flex:1;display:flex;flex-direction:column}
+.ficha h3{
+  font-family:var(--disp);font-weight:700;font-size:20px;
+  letter-spacing:-.01em;color:var(--blue-ink);
+  margin-bottom:4px;
+}
+.ficha .cat{
+  font-family:var(--mono);font-size:16px;
+  letter-spacing:.03em;color:var(--ink-3);margin-bottom:12px;
+}
+.ficha .desc{font-size:16px;line-height:1.55;color:var(--ink);margin-bottom:14px;flex:1}
+.ficha .desc b{color:var(--blue)}
+.ficha .stack{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;
+}
+.ficha .stack span{
+  font-family:var(--mono);font-size:16px;
+  background:var(--blue-ink);color:#DCE7F5;
+  padding:4px 10px;border-radius:3px;
+  letter-spacing:.02em;
+}
+.ficha .res{
+  border-top:1px dashed var(--line-strong);
+  padding-top:12px;margin-top:auto;
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:16px;color:var(--ink-2);
+}
+.ficha .res .dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--ok);
+  box-shadow:0 0 0 3px rgba(30,107,58,.15);
+  flex:none;
+}
+.ficha .res .dot.warn{background:var(--mark);box-shadow:0 0 0 3px rgba(242,179,61,.2)}
+.ficha .res .dot.err{background:var(--bad);box-shadow:0 0 0 3px rgba(179,38,30,.15)}
+.ficha .res.small{font-size:12px;color:var(--ink-3)}
+
+/* ---------- stack tabela ---------- */
+.stack-table{
+  width:100%;border-collapse:collapse;
+  font-size:16px;
+  background:var(--paper-2);
+  border:1px solid var(--line-strong);
+  border-radius:4px;
+  overflow-x:auto;
+  display:block;
+}
+.stack-table th{
+  font-family:var(--mono);font-size:12px;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-2);
+  background:var(--paper-3);
+  text-align:left;
+  padding:11px 16px;
+  border-bottom:1px solid var(--line-strong);
+}
+.stack-table td{
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+}
+.stack-table tr:last-child td{border-bottom:none}
+.stack-table .tech{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blue-ink)}
+.stack-table .lvl{color:var(--ink-2)}
+.stack-table .use{color:var(--ink)}
+.stack-table tr:nth-child(even) td{background:rgba(255,255,255,.4)}
+.stack-table .bar{
+  display:inline-block;height:7px;border-radius:2px;
+  background:var(--blue);min-width:6px;
+}
+
+/* ---------- formacao ---------- */
+.timeline{position:relative;padding-left:30px;max-width:72ch}
+.timeline::before{
+  content:"";position:absolute;left:7px;top:6px;bottom:6px;
+  width:2px;background:var(--line-strong);
+}
+.tl-item{position:relative;margin-bottom:30px}
+.tl-item::before{
+  content:"";position:absolute;left:-29px;top:6px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--blue);
+}
+.tl-item.current::before{background:var(--seal);border-color:var(--seal)}
+.tl-date{
+  font-family:var(--mono);font-size:12px;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-3);margin-bottom:4px;
+}
+.tl-item h3{font-family:var(--disp);font-weight:700;font-size:20px;color:var(--blue-ink);margin-bottom:4px}
+.tl-item p{font-size:16px;color:var(--ink)}
+.tl-item .where{font-family:var(--mono);font-size:12px;color:var(--seal-ink);margin-bottom:6px}
+
+/* ---------- contato ---------- */
+.contact-card{
+  border:1px solid var(--line-strong);
+  background:var(--paper-2);
+  border-radius:4px;
+  padding:34px 34px 30px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:34px;
+  align-items:center;
+}
+.contact-card h2{
+  font-family:var(--disp);font-weight:800;
+  font-size:28px;
+  letter-spacing:-.02em;color:var(--blue-ink);
+  margin-bottom:12px;
+}
+.contact-card p{max-width:46ch;color:var(--ink);font-size:16px;margin-bottom:22px}
+.contact-channels{display:flex;flex-direction:column;gap:12px}
+.channel{
+  display:flex;align-items:center;gap:12px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  padding:14px 16px;
+  font-family:var(--mono);font-size:16px;color:var(--ink);
+  text-decoration:none;
+  transition:border-color .15s ease-out,background .15s ease-out;
+}
+.channel:hover{border-color:var(--seal);background:#fff}
+.channel .lbl{
+  font-size:12px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--ink-3);min-width:64px;
+}
+.channel .val{font-weight:700;color:var(--blue-ink);word-break:break-all}
+
+/* ---------- rodape ---------- */
+.foot{
+  border-top:2px double var(--line-strong);
+  background:var(--paper-2);
+  padding:26px 0 34px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+  color:var(--ink-3);
+}
+.foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot b{color:var(--blue)}
+
+/* ---------- responsivo ---------- */
+@media (max-width:860px){
+  .profile-grid{grid-template-columns:1fr;gap:26px}
+  .projects{grid-template-columns:1fr}
+  .contact-card{grid-template-columns:1fr}
+  .summary .wrap{grid-template-columns:repeat(3,1fr)}
+  .summary a{border-bottom:1px solid var(--line)}
+  .summary a:nth-child(3){border-right:none}
+  .fb-row{grid-template-columns:110px 1fr}
+  .cover{padding:44px 0 40px}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+  .fb-row{grid-template-columns:1fr}
+  .fb-row dt{border-right:none;border-bottom:1px solid var(--line)}
+  .summary .wrap{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .ficha,.ficha .stamp{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteudo</a>
+
+<main id="conteudo">
+
+<!-- ================= FOLHA DE ROSTO ================= -->
+<section class="cover" aria-label="Apresentacao">
+  <div class="wrap">
+    <div class="cover-title">
+      <div class="left">
+        <h1>Matheus Mendes</h1>
+        <div class="subtitle">Desenvolvedor Python · Backend · Dados</div>
+      </div>
+      <div class="side-seal"><span class="seal">DISPONIVEL PARA CONTRATACAO</span></div>
+    </div>
+
+    <p class="thesis">Desenvolvedor com experiencia pratica em <strong>automacao, tratamento de dados e OCR</strong> aplicada a documentos oficiais. Construo ferramentas completas — do backend ao aplicativo desktop — que transformam processos manuais e repetitivos em fluxos automatizados, confiaveis e prontos para producao.</p>
+
+    <div class="cover-actions">
+      <a class="btn btn-seal" href="mailto:theus.magm@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        ENTRAR EM CONTATO
+      </a>
+      <a class="btn" href="#projetos">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        VER PROJETOS REAIS
+      </a>
+    </div>
+
+    <div class="code-probe" aria-label="Trecho de codigo real do projeto RPA Detran">
+      <div class="cp-head"><span>prova &middot; codigo real em producao</span><span>rpa_detran_bot &middot; python</span></div>
+<pre><span class="cm"># PDF escaneado veio de cabeca pra baixo? Sem problema.</span>
+<span class="k">def</span> <span class="f">fazer_ocr</span>(page):
+    <span class="cm"># Renderiza a pagina em alta resolucao (6x = ~432 DPI)</span>
+    mat = pymupdf.Matrix(<span class="n">6</span>, <span class="n">6</span>)
+    pix = page.get_pixmap(matrix=mat)
+
+    <span class="cm"># Tenta original E girado 180; compara qual tem mais</span>
+    <span class="cm"># palavras-chave do Detran. Funciona pros dois casos.</span>
+    melhor_texto = <span class="s">""</span>
+    melhor_chaves = <span class="n">0</span>
+
+    resultado_orig = _ocr_tesseract(img_data, desativar_osd=<span class="k">True</span>)
+    <span class="k">if</span> <span class="k">not</span> resultado_orig <span class="k">or</span> _contar_palavras_chave(resultado_orig) &lt; <span class="n">2</span>:
+        resultado_orig = _ocr_easyocr(img_data)</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SUMARIO ================= -->
+<nav class="summary" aria-label="Sumario do documento">
+  <div class="wrap">
+    <a href="#perfil"><span class="num">01</span><span>Perfil</span></a>
+    <a href="#projetos"><span class="num">02</span><span>Projetos</span></a>
+    <a href="#stack"><span class="num">03</span><span>Stack</span></a>
+    <a href="#formacao"><span class="num">04</span><span>Formacao</span></a>
+    <a href="#contato"><span class="num">05</span><span>Contato</span></a>
+  </div>
+</nav>
+
+<!-- ================= 01 PERFIL ================= -->
+<section class="sec" id="perfil" aria-labelledby="perfil-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">SECAO 01</span>
+      <h2 class="sec-title" id="perfil-t">Perfil do profissional</h2>
+      <span class="sec-note">formulario 1.0 &middot; dados verificados</span>
+    </div>
+
+    <div class="profile-grid">
+      <div>
+        <p class="lead">Cientista da Computacao em formacao (conclusao em dez/2026), com <b>experiencia real de producao em automacao e dados</b> dentro de um orgao publico estadual. Construo ferramentas que acabam com trabalho manual repetitivo — e deixo registrado como.</p>
+        <p class="body" style="margin-top:16px">O objetivo e simples: resolver problemas de verdade com codigo. Se o processo e manual, repetitivo e passivel de erro — eu automatizo. Se o dado esta preso num PDF escaneado — eu extraio. Se a candidatura precisa de 50 aplicacoes por dia — eu escrevo o bot.</p>
+        <p class="body muted" style="margin-top:6px">Interesses: backend, automacao / RPA, analise de dados, integracao de APIs, engenharia reversa, seguranca da informacao.</p>
+      </div>
+
+      <dl class="form-block" aria-label="Dados cadastrais">
+        <div class="fb-head"><span>CADASTRO</span><span>REGULAR</span></div>
+        <div class="fb-row"><dt>Nome</dt><dd><b>Matheus Mendes</b></dd></div>
+        <div class="fb-row"><dt>Cargo</dt><dd>Desenvolvedor &middot; Preparador de dados (Detran-SP)</dd></div>
+        <div class="fb-row"><dt>Formacao</dt><dd>Ciencia da Computacao &middot; UniCruzeiro do Sul &middot; concl. 12/2026</dd></div>
+        <div class="fb-row"><dt>Local</dt><dd>Sao Paulo &middot; Brasil &middot; remoto ou hibrido</dd></div>
+        <div class="fb-row"><dt>Idiomas</dt><dd>Portugues (nativo) &middot; Ingles (B2)</dd></div>
+        <div class="fb-row"><dt>Situacao</dt><dd><span class="tag-ok"><span class="dot-inline"></span> Aberto a propostas</span></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 PROJETOS ================= -->
+<section class="sec" id="projetos" aria-labelledby="projetos-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">SECAO 02</span>
+      <h2 class="sec-title" id="projetos-t">Fichas de projeto</h2>
+      <span class="sec-note">trabalho real &middot; nao e tutorial</span>
+    </div>
+    <p class="body" style="max-width:70ch">Cada ficha abaixo e um sistema que eu projetei, escrevi e coloquei para funcionar. Nenhum projeto de copiar-colar: todos resolveram problemas concretos.</p>
+
+    <div class="projects">
+
+      <article class="ficha" aria-label="Projeto RPA Detran Bot">
+        <div class="ficha-top"><span class="n">FICHA 02-001</span><span>Automacao &middot; OCR</span><span class="stamp">APROVADO</span></div>
+        <div class="ficha-body">
+          <h3>RPA Detran Bot</h3>
+          <div class="cat">python &middot; OCR &middot; documentos oficiais</div>
+          <p class="desc">Bot que le <b>PDFs escaneados de habilitacao</b> (inclusive os que vem de cabeca pra baixo — sim, isso acontece), extrai nome, registro, SEI e processo com OCR duplo (Tesseract + EasyOCR), e gera <b>planilha Excel pronta</b>. Rodou em producao no meu dia a dia no Detran-SP, com 41 PDFs reais processados.</p>
+          <div class="stack"><span>Python</span><span>PyMuPDF</span><span>EasyOCR</span><span>Tesseract</span><span>PySide6</span><span>openpyxl</span></div>
+          <div class="res"><span class="dot"></span> Em producao &middot; usado no trabalho real</div>
+          <div class="res small">destaque: rotacao inteligente 0/180&deg; com comparacao por palavras-chave</div>
+        </div>
+      </article>
+
+      <article class="ficha" aria-label="Projeto AutoApply">
+        <div class="ficha-top"><span class="n">FICHA 02-002</span><span>Automacao &middot; Web</span><span class="stamp">APROVADO</span></div>
+        <div class="ficha-body">
+          <h3>AutoApply</h3>
+          <div class="cat">playwright &middot; linkedin &middot; indeed</div>
+          <p class="desc">Robo que <b>minera vagas e candidata automaticamente</b>: navega no LinkedIn (Easy Apply) e Indeed (Quick Apply), preenche formularios e responde as perguntas das empresas a partir de um perfil configuravel. Banco com <b>683 vagas reais coletadas</b>, pronto para executar em escala.</p>
+          <div class="stack"><span>Python</span><span>Playwright</span><span>JSON</span><span>CLI</span></div>
+          <div class="res"><span class="dot"></span> Em producao &middot; banco de 683 vagas</div>
+          <div class="res small">destaque: respostas contextuais por vaga, perfil centralizado</div>
+        </div>
+      </article>
+
+      <article class="ficha" aria-label="Projeto PRISM">
+        <div class="ficha-top"><span class="n">FICHA 02-003</span><span>Desktop &middot; Eng. Reversa</span><span class="stamp">APROVADO</span></div>
+        <div class="ficha-body">
+          <h3>PRISM</h3>
+          <div class="cat">c# &middot; .net 6 &middot; arquitetura modular</div>
+          <p class="desc">Suite desktop com <b>5 modulos independentes</b> (aim, trigger, visao, skins, misc) e <b>~5.900 linhas de C#</b> (mais de 8.200 com o loader em C++). Leitura de memoria em tempo real, banco local com <b>2.126 itens</b> de inventario, UI em camadas estilo loader de jogo, mais um webapp complementar com proxy e simulador de demonstracao. Projeto de estudo em engenharia reversa — executado apenas em ambiente controlado e offline.</p>
+          <div class="stack"><span>C#</span><span>.NET 6</span><span>Win32</span><span>HTML/JS</span><span>SQLite</span></div>
+          <div class="res"><span class="dot warn"></span> Estudo &middot; ambiente controlado</div>
+          <div class="res small">destaque: arquitetura em camadas + banco de dados local de itens</div>
+        </div>
+      </article>
+
+      <article class="ficha" aria-label="Projeto Storaboga Sound">
+        <div class="ficha-top"><span class="n">FICHA 02-004</span><span>Sistemas &middot; Tempo real</span><span class="stamp">APROVADO</span></div>
+        <div class="ficha-body">
+          <h3>Storaboga Sound</h3>
+          <div class="cat">discord.py &middot; fastapi &middot; react</div>
+          <p class="desc">Bot de musica para Discord com <b>dashboard web em tempo real</b>: bot + API + frontend estatico rodando num unico processo, audio via yt-dlp + FFmpeg, fila persistida em SQLite, atualizacao ao vivo via SSE, e <b>cor dinamica extraida da capa do album</b> (colorthief + clamp HSL) que colore embed e interface. Design system proprio documentado.</p>
+          <div class="stack"><span>Python</span><span>discord.py</span><span>FastAPI</span><span>React</span><span>SSE</span><span>yt-dlp</span></div>
+          <div class="res"><span class="dot"></span> Em producao &middot; bot ativo em servidor</div>
+          <div class="res small">destaque: single-process (bot + API + frontend) em VPS de 1GB</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 STACK ================= -->
+<section class="sec" id="stack" aria-labelledby="stack-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">SECAO 03</span>
+      <h2 class="sec-title" id="stack-t">Conhecimentos tecnicos</h2>
+      <span class="sec-note">avaliacao honesta</span>
+    </div>
+
+    <table class="stack-table" aria-label="Tabela de conhecimentos tecnicos">
+      <thead>
+        <tr>
+          <th scope="col">Tecnologia</th>
+          <th scope="col">Nivel</th>
+          <th scope="col">Uso real</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tech">Python</td>
+          <td class="lvl"><span class="bar" style="width:74px"></span>&nbsp; avancado em automacao</td>
+          <td class="use">OCR, scraping, RPA, CLI, scripts de producao, IA/ML (fundamentos)</td>
+        </tr>
+        <tr>
+          <td class="tech">C# / .NET 6</td>
+          <td class="lvl"><span class="bar" style="width:52px"></span>&nbsp; intermediario</td>
+          <td class="use">Aplicacoes desktop, arquitetura modular, leitura de memoria</td>
+        </tr>
+        <tr>
+          <td class="tech">JavaScript / HTML / CSS</td>
+          <td class="lvl"><span class="bar" style="width:58px"></span>&nbsp; intermediario</td>
+          <td class="use">Web apps, dashboards, UI de ferramentas, dados embutidos offline</td>
+        </tr>
+        <tr>
+          <td class="tech">Git / GitHub</td>
+          <td class="lvl"><span class="bar" style="width:62px"></span>&nbsp; intermediario</td>
+          <td class="use">Versionamento diario, repos de projetos, documentacao</td>
+        </tr>
+        <tr>
+          <td class="tech">Ciberseguranca</td>
+          <td class="lvl"><span class="bar" style="width:40px"></span>&nbsp; fundamentos</td>
+          <td class="use">Engenharia reversa, analise de memoria, boas praticas</td>
+        </tr>
+        <tr>
+          <td class="tech">Java &middot; SQL</td>
+          <td class="lvl"><span class="bar" style="width:34px"></span>&nbsp; academico</td>
+          <td class="use">Disciplinas de graduacao, banco de dados relacional</td>
+        </tr>
+        <tr>
+          <td class="tech">Ingles tecnico</td>
+          <td class="lvl"><span class="bar" style="width:70px"></span>&nbsp; B2</td>
+          <td class="use">Documentacao, APIs, comunicacao escrita</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 04 FORMACAO ================= -->
+<section class="sec" id="formacao" aria-labelledby="formacao-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">SECAO 04</span>
+      <h2 class="sec-title" id="formacao-t">Trajetoria</h2>
+      <span class="sec-note">linha do tempo &middot; processo real</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item current">
+        <div class="tl-date">Atualmente</div>
+        <h3>Preparador de dados &middot; Detran-SP</h3>
+        <div class="where">Governo do Estado de Sao Paulo</div>
+        <p>Trato documentos e dados oficiais de habilitacao — e construi automacao propria sobre esse processo, do OCR de PDF escaneado a planilha final.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2023 &mdash; 2026</div>
+        <h3>Bacharelado em Ciencia da Computacao</h3>
+        <div class="where">Universidade Cruzeiro do Sul &middot; conclusao prevista 12/2026</div>
+        <p>Estruturas de dados, algoritmos, bancos de dados, engenharia de software, seguranca. Projetos paralelos sempre: automacao e ferramentas reais.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2019</div>
+        <h3>Inicio em tecnologia</h3>
+        <div class="where">Autodidata &middot; projetos pessoais</div>
+        <p>Primeiras linhas de codigo, primeiro bot, primeiro script util. A partir dai, construo ferramentas para tudo que parece trabalho manual demais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 CONTATO ================= -->
+<section class="sec" id="contato" aria-labelledby="contato-t" style="border-bottom:none">
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2 id="contato-t">Vamos conversar?</h2>
+        <p>Se a sua equipe precisa de alguem que <b>entrega ferramenta funcionando</b>, nao slides — me chama. Respondo rapido, sem enrolacao. Disponivel para entrevistas, desafio tecnico e inicio imediato.</p>
+        <div class="cover-actions" style="margin:0">
+          <a class="btn btn-seal" href="mailto:theus.magm@gmail.com">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            ENVIAR EMAIL
+          </a>
+        </div>
+      </div>
+      <div class="contact-channels">
+        <a class="channel" href="mailto:theus.magm@gmail.com">
+          <span class="lbl">Email</span><span class="val">theus.magm@gmail.com</span>
+        </a>
+        <a class="channel" href="tel:+5511961908008">
+          <span class="lbl">Telefone</span><span class="val">(11) 96190-8008</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>DOCUMENTO CONTROLADO &middot; PROF-2026-0001 &middot; REV 01</span>
+    <span>feito a mao em HTML/CSS/JS &middot; <b>sem template</b></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // carimbo de aprovacao nas fichas ao entrar no viewport
+  var fichas = document.querySelectorAll('.ficha');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.18, rootMargin:'0px 0px -40px 0px'});
+    fichas.forEach(function(f){ io.observe(f); });
+  } else {
+    fichas.forEach(function(f){ f.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>

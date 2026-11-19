@@ -1,550 +1,681 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matheus Mendes — Desenvolvedor Python & Automação</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matheus Mendes — Desenvolvedor Python</title>
+<meta name="description" content="Portfólio de Matheus Mendes, desenvolvedor Python: automação (RPA), extração de documentos com OCR, APIs em FastAPI e engenharia de dados. 47 testes automatizados.">
+<meta property="og:title" content="Matheus Mendes — Desenvolvedor Python">
+<meta property="og:description" content="Automação, dados e backend em Python. Três sistemas em produção no DETRAN-SP e 47 testes automatizados.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230b1220'/><text x='50' y='68' font-size='52' font-family='monospace' font-weight='bold' fill='%2338bdf8' text-anchor='middle'>M</text></svg>">
 <style>
-:root {
-  --bg: #08090a;
-  --surface: #0f1011;
-  --surface2: #191a1b;
-  --border: rgba(255,255,255,0.08);
-  --text: #f7f8f8;
-  --text2: #d0d6e0;
-  --muted: #8a8f98;
-  --dim: #62666d;
-  --accent: #5e6ad2;
-  --accent2: #7170ff;
-  --green: #10b981;
-  --red: #ef4444;
-  --orange: #f97316;
-  --purple: #a855f7;
+@font-face{font-family:'Inter';src:url('fonts/Inter-400.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('fonts/JetBrainsMono-400.woff2') format('woff2');font-weight:100 900;font-display:swap}
+:root{
+  --bg:#0b1220;
+  --bg-soft:#0e1729;
+  --surface:#111b2e;
+  --surface-2:#152238;
+  --border:rgba(148,163,184,.14);
+  --border-strong:rgba(148,163,184,.26);
+  --text:#e8eefc;
+  --muted:#94a3b8;
+  --dim:#64748b;
+  --accent:#38bdf8;
+  --accent-2:#6366f1;
+  --ok:#34d399;
+  --radius:14px;
+  --max:1120px;
 }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(760px 460px at 78% -8%, rgba(56,189,248,.14), transparent 60%),
+    radial-gradient(620px 420px at 12% 4%, rgba(99,102,241,.12), transparent 62%),
+    linear-gradient(rgba(148,163,184,.045) 1px, transparent 1px) 0 0/100% 44px,
+    linear-gradient(90deg, rgba(148,163,184,.045) 1px, transparent 1px) 0 0/44px 100%;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(14px);background:rgba(11,18,32,.78);
+  border-bottom:1px solid var(--border);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.2px}
+.logo .dot{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--accent),var(--accent-2));
+  color:#06121f;font-weight:800;font-size:15px;font-family:'Inter';
+}
+.nav-links{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+.nav-links a{transition:color .18s}
+.nav-links a:hover{color:var(--text)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:10px;font-size:14px;font-weight:600;
+  border:1px solid var(--border-strong);color:var(--text);
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.btn:hover{transform:translateY(-1px);border-color:var(--accent)}
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#07101d;border:0;box-shadow:0 8px 24px -12px rgba(56,189,248,.8);
+}
+.btn.primary:hover{box-shadow:0 12px 30px -12px rgba(56,189,248,.95)}
 
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+/* ---------- hero ---------- */
+header.hero{padding:76px 0 48px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center}
+.badge-status{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;color:#a7f3d0;
+  background:rgba(52,211,153,.09);border:1px solid rgba(52,211,153,.28);
+  padding:6px 12px;border-radius:999px;margin-bottom:22px;
 }
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+h1{
+  font-size:clamp(2.4rem,5.2vw,3.65rem);line-height:1.04;letter-spacing:-.035em;
+  font-weight:800;
+}
+h1 .grad{
+  background:linear-gradient(115deg,var(--accent) 10%,var(--accent-2) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{color:var(--muted);font-size:1.06rem;margin-top:20px;max-width:56ch}
+.lead b{color:var(--text);font-weight:600}
+.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:46px;padding-top:26px;border-top:1px solid var(--border)}
+.hero-metrics div{min-width:0}
+.hero-metrics div strong{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+.hero-metrics div span{font-size:12.5px;color:var(--dim);letter-spacing:.02em}
 
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+/* ---------- terminal ---------- */
+.term{
+  background:linear-gradient(180deg,var(--surface),var(--bg-soft));
+  border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.9);overflow:hidden;
+}
+.term-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--border);background:rgba(148,163,184,.04)}
+.term-bar i{width:10px;height:10px;border-radius:50%;display:block}
+.term-bar i:nth-child(1){background:#f87171}.term-bar i:nth-child(2){background:#fbbf24}.term-bar i:nth-child(3){background:#34d399}
+.term-bar span{margin-left:8px;font-size:11.5px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+.term pre{scrollbar-width:none;padding:20px 20px 24px;font-family:'JetBrains Mono',monospace;font-size:12.9px;line-height:1.9;overflow-x:auto;color:#e2e8f0}
+.tok-c{color:#8494ab}.tok-k{color:#d8b4fe}.tok-s{color:#93c5fd}.tok-f{color:#fcd34d}.tok-n{color:#6ee7b7}.tok-p{color:#f9a8d4}
 
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(8,9,10,0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 0;
+/* ---------- sections ---------- */
+section{padding:66px 0}
+.sec-head{margin-bottom:34px}
+.eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;
 }
-nav .container { display: flex; justify-content: space-between; align-items: center; }
-nav .logo { font-weight: 600; font-size: 16px; color: var(--text); letter-spacing: -0.3px; }
-nav .logo span { color: var(--accent2); }
-nav .links { display: flex; gap: 24px; }
-nav .links a {
-  color: var(--muted); text-decoration: none; font-size: 13px;
-  font-weight: 500; transition: color 0.2s;
-}
-nav .links a:hover { color: var(--text); }
+h2{font-size:clamp(1.55rem,3vw,2.05rem);font-weight:800;letter-spacing:-.028em;line-height:1.15}
+.sec-head p{color:var(--muted);margin-top:10px;max-width:62ch}
 
-/* HERO */
-.hero {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 120px 24px 80px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(94,106,210,0.08) 0%, transparent 60%);
+/* ---------- filtros ---------- */
+.filtros{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:26px}
+.chip{
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+  padding:7px 14px;border-radius:999px;border:1px solid var(--border);
+  background:rgba(148,163,184,.05);transition:all .18s;
 }
-.hero h1 {
-  font-size: 72px; font-weight: 500; letter-spacing: -1.584px;
-  line-height: 1.0; margin-bottom: 24px;
-  font-feature-settings: "cv01", "ss03";
-}
-.hero h1 .accent { color: var(--accent2); }
-.hero .subtitle {
-  font-size: 18px; color: var(--muted); max-width: 600px;
-  margin: 0 auto 40px; line-height: 1.6;
-}
-.hero .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn {
-  padding: 10px 20px; border-radius: 6px; font-size: 14px;
-  font-weight: 500; text-decoration: none; transition: all 0.2s;
-  cursor: pointer; border: none;
-}
-.btn-primary { background: var(--accent); color: white; }
-.btn-primary:hover { background: var(--accent2); }
-.btn-ghost {
-  background: rgba(255,255,255,0.02); color: var(--text2);
-  border: 1px solid var(--border);
-}
-.btn-ghost:hover { background: rgba(255,255,255,0.05); }
+.chip:hover{color:var(--text);border-color:var(--border-strong)}
+.chip.ativo{background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.5);color:#bae6fd}
 
-/* SECTIONS */
-section { padding: 100px 0; }
-.section-label {
-  font-size: 12px; font-weight: 500; color: var(--accent2);
-  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{
+  position:relative;background:linear-gradient(180deg,var(--surface),rgba(17,27,46,.6));
+  border:1px solid var(--border);border-radius:var(--radius);padding:22px 22px 20px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:transform .22s,border-color .22s,box-shadow .22s;
+  overflow:hidden;
 }
-.section-title {
-  font-size: 32px; font-weight: 500; letter-spacing: -0.704px;
-  margin-bottom: 48px; line-height: 1.13;
+.card::after{
+  content:"";position:absolute;left:0;top:0;height:2px;width:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  opacity:0;transition:opacity .22s;
 }
+.card:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 26px 50px -34px rgba(0,0,0,.95)}
+.card:hover::after{opacity:1}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.card h3{font-size:1.02rem;font-weight:700;letter-spacing:-.015em;line-height:1.3}
+.card h3 small{display:block;font-size:12.5px;font-weight:500;color:var(--dim);margin-top:3px}
+.tag{
+  flex:0 0 auto;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:4px 9px;border-radius:6px;white-space:nowrap;
+}
+.tag.prod{background:rgba(52,211,153,.12);color:#6ee7b7;border:1px solid rgba(52,211,153,.3)}
+.tag.novo{background:rgba(56,189,248,.12);color:#7dd3fc;border:1px solid rgba(56,189,248,.3)}
+.tag.estudo{background:rgba(148,163,184,.1);color:#cbd5e1;border:1px solid var(--border)}
+.card p{font-size:14.2px;color:#b6c2d9;line-height:1.6;flex:1}
+.card p b{color:var(--text);font-weight:600}
+.metric{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  font-size:12.5px;font-weight:600;color:#a5f3fc;
+  background:rgba(56,189,248,.09);border:1px solid rgba(56,189,248,.22);
+  padding:5px 10px;border-radius:7px;
+}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.stack span{
+  font-size:11.5px;font-weight:500;color:var(--muted);
+  background:rgba(148,163,184,.07);border:1px solid var(--border);
+  padding:3px 8px;border-radius:5px;
+}
+.card-link{font-size:12.5px;font-weight:600;color:var(--accent);display:inline-flex;gap:5px;align-items:center}
+.card-link:hover{text-decoration:underline}
 
-/* ABOUT */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.about-text p { color: var(--text2); margin-bottom: 16px; font-size: 16px; }
-.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.stat-card {
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  border-radius: 8px; padding: 20px; text-align: center;
+/* ---------- outros ---------- */
+.mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mini{
+  background:rgba(148,163,184,.04);border:1px solid var(--border);border-radius:11px;
+  padding:15px 16px;transition:border-color .18s,background .18s;
 }
-.stat-card .number { font-size: 28px; font-weight: 600; color: var(--accent2); }
-.stat-card .label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.mini:hover{border-color:var(--border-strong);background:rgba(148,163,184,.07)}
+.mini h4{font-size:13.6px;font-weight:650;margin-bottom:5px}
+.mini p{font-size:12.4px;color:var(--dim);line-height:1.5}
 
-/* PROJECTS */
-.projects-grid { display: grid; gap: 24px; }
-.project-card {
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  border-radius: 12px; padding: 32px; transition: all 0.3s;
-  position: relative; overflow: hidden;
+/* ---------- stack ---------- */
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stack-box{background:linear-gradient(180deg,var(--surface),rgba(17,27,46,.5));border:1px solid var(--border);border-radius:12px;padding:18px}
+.stack-box h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:700}
+.stack-box .itens{display:flex;flex-wrap:wrap;gap:7px}
+.stack-box .itens span{
+  font-size:12.5px;color:#c3cfe3;background:rgba(148,163,184,.08);
+  border:1px solid var(--border);padding:4px 9px;border-radius:6px;
 }
-.project-card:hover {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.12);
-}
-.project-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  opacity: 0; transition: opacity 0.3s;
-}
-.project-card:hover::before { opacity: 1; }
-.project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px; }
-.project-title { font-size: 20px; font-weight: 600; letter-spacing: -0.24px; }
-.project-badge {
-  font-size: 11px; font-weight: 500; padding: 4px 10px;
-  border-radius: 9999px; border: 1px solid;
-}
-.badge-green { color: var(--green); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.08); }
-.badge-purple { color: var(--purple); border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.08); }
-.badge-orange { color: var(--orange); border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.08); }
-.badge-accent { color: var(--accent2); border-color: rgba(113,112,255,0.3); background: rgba(113,112,255,0.08); }
-.project-desc { color: var(--text2); font-size: 15px; margin-bottom: 16px; line-height: 1.6; }
-.project-tech { display: flex; flex-wrap: wrap; gap: 8px; }
-.tech-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  color: var(--muted); background: rgba(255,255,255,0.04);
-  padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05);
-}
-.project-proof {
-  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
-  font-size: 13px; color: var(--dim);
-}
-.project-proof strong { color: var(--text2); }
+.stack-box .itens span b{color:#fff;font-weight:650}
 
-/* SKILLS */
-.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.skill-group h3 {
-  font-size: 14px; font-weight: 500; color: var(--text);
-  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+/* ---------- timeline ---------- */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(180deg,var(--accent),transparent)}
+.tl-item{position:relative;padding-bottom:26px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:-24.5px;top:7px;width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);
 }
-.skill-group ul { list-style: none; }
-.skill-group li {
-  font-size: 14px; color: var(--text2); padding: 6px 0;
-  display: flex; align-items: center; gap: 8px;
-}
-.skill-group li::before { content: '→'; color: var(--accent2); font-size: 12px; }
+.tl-item h4{font-size:15px;font-weight:700}
+.tl-item h4 span{font-weight:500;color:var(--muted)}
+.tl-item .quando{font-size:12px;color:var(--accent);font-weight:600;margin-top:2px;letter-spacing:.02em}
+.tl-item p{font-size:14px;color:var(--muted);margin-top:7px;max-width:78ch}
 
-/* EXPERIENCE */
-.exp-timeline { position: relative; padding-left: 24px; }
-.exp-timeline::before {
-  content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
-  width: 1px; background: var(--border);
+/* ---------- contato ---------- */
+.contato{
+  background:linear-gradient(140deg,rgba(56,189,248,.1),rgba(99,102,241,.08));
+  border:1px solid var(--border-strong);border-radius:18px;padding:44px 40px;text-align:center;
 }
-.exp-item { position: relative; margin-bottom: 32px; }
-.exp-item::before {
-  content: ''; position: absolute; left: -28px; top: 8px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent); border: 2px solid var(--bg);
-}
-.exp-item.current::before { background: var(--green); box-shadow: 0 0 8px rgba(16,185,129,0.4); }
-.exp-role { font-size: 16px; font-weight: 500; }
-.exp-company { font-size: 14px; color: var(--accent2); }
-.exp-date { font-size: 12px; color: var(--dim); margin-bottom: 8px; }
-.exp-desc { font-size: 14px; color: var(--text2); }
+.contato h2{font-size:clamp(1.5rem,3vw,2rem)}
+.contato p{color:var(--muted);margin:12px auto 26px;max-width:52ch}
+.contato .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:26px 0;color:var(--dim);font-size:13px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 
-/* CERTS */
-.certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.cert-card {
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  border-radius: 8px; padding: 16px; text-align: center;
-}
-.cert-card .icon { font-size: 24px; margin-bottom: 8px; }
-.cert-card .name { font-size: 13px; font-weight: 500; color: var(--text); }
-.cert-card .issuer { font-size: 11px; color: var(--muted); }
+/* ---------- animacao ---------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation:none!important}}
 
-/* CONTACT */
-.contact-card {
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  border-radius: 12px; padding: 48px; text-align: center;
+/* ---------- responsivo ---------- */
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .grid,.stack-grid{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
 }
-.contact-card h2 { font-size: 24px; margin-bottom: 12px; }
-.contact-card p { color: var(--muted); margin-bottom: 24px; }
-.contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.contact-link {
-  display: flex; align-items: center; gap: 8px;
-  color: var(--text2); text-decoration: none; font-size: 14px;
-  padding: 10px 16px; border-radius: 6px;
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  transition: all 0.2s;
+@media (max-width:560px){
+  section{padding:48px 0}
+  header.hero{padding:48px 0 34px}
+  .mini-grid{grid-template-columns:1fr}
+  .hero-metrics{gap:22px}
+  .contato{padding:32px 20px}
+  .wrap{padding:0 18px}
 }
-.contact-link:hover { background: rgba(255,255,255,0.05); color: var(--text); }
-
-/* FOOTER */
-footer {
-  text-align: center; padding: 40px 0;
-  border-top: 1px solid var(--border);
-  font-size: 12px; color: var(--dim);
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero h1 { font-size: 40px; letter-spacing: -0.88px; }
-  .about-grid { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .certs-grid { grid-template-columns: 1fr 1fr; }
-  nav .links { display: none; }
-}
+.term pre::-webkit-scrollbar{display:none}
+@media (max-width:560px){.hero-metrics{grid-template-columns:repeat(2,1fr);gap:18px}}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="container">
-    <div class="logo">matheus<span>.dev</span></div>
-    <div class="links">
-      <a href="#about">Sobre</a>
-      <a href="#projects">Projetos</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experiência</a>
-      <a href="#contact">Contato</a>
+  <div class="wrap nav-in">
+    <a class="logo" href="#top"><span class="dot">M</span> matheus<span style="color:var(--dim)">.dev</span></a>
+    <div class="nav-links">
+      <a href="#projetos">Projetos</a>
+      <a href="#stack">Stack</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#contato">Contato</a>
     </div>
+    <a class="btn primary" href="https://www.linkedin.com/in/matheus-mendes-dev/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div>
-    <h1>Matheus <span class="accent">Mendes</span></h1>
-    <p class="subtitle">Desenvolvedor Python · Automação · IA · Cibersegurança<br>Transformando processos manuais em sistemas inteligentes</p>
-    <div class="cta-group">
-      <a href="#projects" class="btn btn-primary">Ver Projetos</a>
-      <a href="#contact" class="btn btn-ghost">Contato</a>
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge-status"><span class="pulse"></span> Aberto a oportunidades júnior · São Paulo e remoto</div>
+      <h1>Matheus Mendes<br><span class="grad">Python, automação e dados.</span></h1>
+      <p class="lead">
+        Construo sistemas que <b>trabalham no lugar das pessoas</b>: RPA multi-sistema, extração de
+        documentos com OCR, APIs em FastAPI e pipelines de dados. No DETRAN-SP são <b>três sistemas em
+        produção</b> e mais de <b>14 mil registros</b> processados automaticamente.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projetos">Ver projetos ↓</a>
+        <a class="btn" href="https://github.com/ManowTheusZica" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <div class="hero-metrics">
+        <div><strong>3 anos</strong><span>escrevendo código desde 2023</span></div>
+        <div><strong>14 mil+</strong><span>registros processados</span></div>
+        <div><strong>190</strong><span>testes automatizados</span></div>
+        <div><strong>16</strong><span>projetos construídos</span></div>
+      </div>
+    </div>
+
+    <div class="term">
+      <div class="term-bar"><i></i><i></i><i></i><span>extrator.py — produção</span></div>
+<pre><span class="tok-c"># pipeline real que roda no DETRAN-SP</span>
+<span class="tok-k">def</span> <span class="tok-f">extrair</span>(pdf: <span class="tok-p">Path</span>) -> <span class="tok-p">dict</span>:
+    texto = <span class="tok-f">ocr_em_cascata</span>(pdf)      <span class="tok-c"># PyMuPDF → Tesseract → RapidOCR</span>
+    texto = <span class="tok-f">desgrudar</span>(texto, <span class="tok-s">"SEI"</span>, <span class="tok-s">"PA"</span>)
+    campos = {
+        <span class="tok-s">"nome"</span>:     <span class="tok-f">nome_valido</span>(texto),
+        <span class="tok-s">"registro"</span>: <span class="tok-f">regex</span>(<span class="tok-s">r"\d{9,11}"</span>, texto),
+        <span class="tok-s">"sei"</span>:      <span class="tok-f">regex</span>(<span class="tok-s">r"\d{3}\.\d{8}/\d{4}-\d{2}"</span>, texto),
+        <span class="tok-s">"pa"</span>:       <span class="tok-f">regex</span>(<span class="tok-s">r"\d+/\d{4}"</span>, texto),
+    }
+    <span class="tok-k">return</span> {k: v <span class="tok-k">for</span> k, v <span class="tok-k">in</span> campos.items() <span class="tok-k">if</span> v}
+
+<span class="tok-c"># 16.000 registros: de horas para minutos</span>
+<span class="tok-k">assert</span> <span class="tok-f">len</span>(<span class="tok-f">extrair</span>(<span class="tok-n">"oficio.pdf"</span>)) == <span class="tok-n">4</span></pre>
+    </div>
+  </div>
+</header>
+
+<section id="projetos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Portfólio</div>
+      <h2>Projetos que resolvem problema de verdade</h2>
+      <p>
+        Cada card tem o número que prova o resultado — testes automatizados, registros processados,
+        acurácia medida. Nada de "projeto de curso que só roda na minha máquina" — o código está público, com CI verde.
+      </p>
+    </div>
+
+    <div class="filtros reveal">
+      <button class="chip ativo" data-f="todos">Todos</button>
+      <button class="chip" data-f="backend">Backend &amp; APIs</button>
+      <button class="chip" data-f="dados">Dados &amp; ETL</button>
+      <button class="chip" data-f="ia">IA &amp; Busca</button>
+      <button class="chip" data-f="automacao">Automação</button>
+      <button class="chip" data-f="web">Web</button>
+    </div>
+
+    <div class="grid">
+
+      <article class="card reveal" data-cat="backend">
+        <div class="card-top">
+          <h3>DocExtract Cloud<small>API multi-usuário de extração documental</small></h3>
+          <span class="tag novo">2026</span>
+        </div>
+        <p>
+          Recebe PDF e devolve <b>CPF, CNPJ, SEI, PA e CEP</b> em JSON com confiança por campo.
+          Autenticação JWT com PBKDF2 e salt, isolamento por usuário, rate limiting e carga
+          idempotente. Containerizado, com CI no GitHub Actions.
+        </p>
+        <span class="metric">✔ 17 testes automatizados</span>
+        <div class="stack"><span>Python</span><span>FastAPI</span><span>SQLAlchemy</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span><span>JWT</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/docextract-cloud" target="_blank" rel="noopener">Ver código no GitHub ↗</a>
+      </article>
+
+      <article class="card reveal" data-cat="dados">
+        <div class="card-top">
+          <h3>ETL de indicadores públicos + dashboard<small>Banco Central → SQLite → web</small></h3>
+          <span class="tag novo">2026</span>
+        </div>
+        <p>
+          Coleta, trata e carrega <b>285 registros mensais</b> do Banco Central com deduplicação,
+          agregação e log de execução. A análise estatística achou correlação de
+          <b>−0,86 entre Selic e IPCA</b> acumulado em 12 meses — juro alto hoje, inflação menor
+          um ano depois.
+        </p>
+        <span class="metric">✔ 16 testes · r = −0,86 com 12 meses de defasagem</span>
+        <div class="stack"><span>Python</span><span>SQL</span><span>SQLite</span><span>FastAPI</span><span>Estatística</span><span>SVG</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/etl-dados-abertos" target="_blank" rel="noopener">Ver código no GitHub ↗</a>
+      </article>
+
+      <article class="card reveal" data-cat="ia">
+        <div class="card-top">
+          <h3>RAG do Código de Trânsito<small>busca que sempre cita o artigo</small></h3>
+          <span class="tag novo">2026</span>
+        </div>
+        <p>
+          Perguntas em português sobre a Lei 9.503/1997. 324 artigos indexados em 726 trechos com
+          <b>BM25 escrito do zero</b> e radical de português próprio. Toda resposta aponta o artigo
+          que a sustenta — e quando não sabe, diz que não sabe.
+        </p>
+        <span class="metric">✔ hit@1 83,3% · hit@3 100% · MRR 0,907</span>
+        <div class="stack"><span>Python</span><span>BM25</span><span>Recuperação de informação</span><span>FastAPI</span><span>PLN</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/rag-legislacao" target="_blank" rel="noopener">Ver código no GitHub ↗</a>
+      </article>
+
+
+      <article class="card reveal" data-cat="backend">
+        <div class="card-top">
+          <h3>br-docs<small>biblioteca de validação de documento brasileiro</small></h3>
+          <span class="tag novo">2026</span>
+        </div>
+        <p>
+          CPF, CNPJ, CEP, placa e telefone com os algoritmos oficiais — em Python puro,
+          <b>zero dependência</b>. Pacote publicável (`pip install`), CLI e <b>100% de cobertura
+          de teste</b> verificada no CI: se alguém adicionar um <code>if</code> sem teste, o build quebra.
+        </p>
+        <span class="metric">✔ 71 testes · 100% de cobertura</span>
+        <div class="stack"><span>Python</span><span>setuptools</span><span>CLI</span><span>pytest</span><span>GitHub Actions</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/br-docs" target="_blank" rel="noopener">Ver código no GitHub ↗</a>
+      </article>
+
+      <article class="card reveal" data-cat="automacao">
+        <div class="card-top">
+          <h3>webwatch<small>monitor de página e preço com alerta</small></h3>
+          <span class="tag novo">2026</span>
+        </div>
+        <p>
+          Cadastra uma URL e um seletor CSS, guarda o histórico em SQLite e avisa quando o preço
+          ou o texto muda. <b>Retry com backoff</b>, <code>Retry-After</code> respeitado e
+          <b>cache condicional</b>: 304 custa ~200 bytes em vez da página inteira.
+        </p>
+        <span class="metric">✔ 52 testes · servidor HTTP real no teste</span>
+        <div class="stack"><span>Python</span><span>SQLite</span><span>HTMLParser</span><span>CLI</span><span>webhook</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/webwatch" target="_blank" rel="noopener">Ver código no GitHub ↗</a>
+      </article>
+
+      <article class="card reveal" data-cat="ia dados">
+        <div class="card-top">
+          <h3>churn-api<small>modelo de churn servido por API</small></h3>
+          <span class="tag novo">2026</span>
+        </div>
+        <p>
+          scikit-learn + FastAPI: <b>ROC AUC 0,7914</b> num dataset cujo teto teórico é 0,8002 —
+          recuperou <b>98,9%</b> da informação disponível. Serve <code>/predict</code> com faixa de
+          risco e recomendação, e publica as métricas do artefato em <code>/metrics</code>.
+        </p>
+        <span class="metric">✔ 20 testes · AUC 0,7914 · baseline 0,5</span>
+        <div class="stack"><span>Python</span><span>scikit-learn</span><span>FastAPI</span><span>pandas</span><span>pytest</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/churn-api" target="_blank" rel="noopener">Ver código no GitHub ↗</a>
+      </article>
+
+      <article class="card reveal" data-cat="backend automacao">
+        <div class="card-top">
+          <h3>API de extração de PDFs<small>FastAPI + OCR em cascata</small></h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <p>
+          Extração em lote de nome, registro, SEI, PA, CEP e número de ofícios escaneados.
+          Cascata <b>PyMuPDF → Tesseract → RapidOCR</b>, com limpeza de artefatos de OCR e
+          validação por campo antes de entregar a planilha.
+        </p>
+        <span class="metric">✔ 11/11 testes · de minutos para segundos por página</span>
+        <div class="stack"><span>Python</span><span>FastAPI</span><span>PyMuPDF</span><span>Tesseract</span><span>RapidOCR</span></div>
+      </article>
+
+      <article class="card reveal" data-cat="automacao">
+        <div class="card-top">
+          <h3>Bot de suspensão de CNH<small>RPA multi-sistema com GUI</small></h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <p>
+          Automatiza a triagem e o encaminhamento de processos de suspensão em
+          <b>PCON → PEVB → PPON</b>, sem intervenção manual. Interface PySide6 com tema escuro,
+          barra de progresso e log em tempo real — o usuário nunca vê uma janela preta.
+        </p>
+        <span class="metric">✔ 3 sistemas integrados · execução sem toque humano</span>
+        <div class="stack"><span>Python</span><span>PyAutoGUI</span><span>Selenium</span><span>PySide6</span></div>
+      </article>
+
+      <article class="card reveal" data-cat="automacao dados">
+        <div class="card-top">
+          <h3>Auditoria de processos SEI<small>conferência automática com filtros</small></h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <p>
+          Navega o SEI via <b>Playwright/CDP</b>, filtra por mês, origem e regra de negócio e
+          monta a lista de processos fora do padrão — com aba separada de itens ignorados.
+          O que era conferência manual virou relatório.
+        </p>
+        <span class="metric">✔ filtros por mês, origem e regra</span>
+        <div class="stack"><span>Python</span><span>Playwright</span><span>CDP</span></div>
+      </article>
+
+      <article class="card reveal" data-cat="web">
+        <div class="card-top">
+          <h3>Painel de notificações DETRAN<small>editor com 78 modelos</small></h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <p>
+          Aplicação web de página única para redigir notificações: <b>78 templates</b>, busca,
+          pré-visualização em tempo real e exportação em PDF. Zero dependência de servidor —
+          abre e funciona.
+        </p>
+        <span class="metric">✔ 78 modelos · exportação em PDF</span>
+        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <a class="card-link" href="https://github.com/ManowTheusZica/detran-notificacoes" target="_blank" rel="noopener">Ver repositório ↗</a>
+      </article>
+
+      <article class="card reveal" data-cat="web dados">
+        <div class="card-top">
+          <h3>NEURAL DIFF<small>comparador de notificações</small></h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <p>
+          Cockpit que compara duas versões de notificação e destaca <b>exatamente o que mudou</b>
+          entre elas — texto, prazo, fundamento — com busca e filtros. Fim da conferência
+          linha por linha no olho.
+        </p>
+        <span class="metric">✔ diff visual com filtros e busca</span>
+        <div class="stack"><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+      </article>
+
+      <article class="card reveal" data-cat="automacao">
+        <div class="card-top">
+          <h3>AutoApply<small>scraping de vagas + relatório</small></h3>
+          <span class="tag estudo">Pessoal</span>
+        </div>
+        <p>
+          Robô em Playwright que varre vagas, filtra por stack e senioridade e gera relatório
+          de candidaturas. Feito para resolver meu próprio problema de procurar emprego —
+          e virou exercício de scraping resiliente.
+        </p>
+        <span class="metric">✔ coleta e relatório automatizados</span>
+        <div class="stack"><span>Python</span><span>Playwright</span><span>pandas</span></div>
+      </article>
+
+      <article class="card reveal" data-cat="dados">
+        <div class="card-top">
+          <h3>Limpadados<small>higienização de planilhas</small></h3>
+          <span class="tag estudo">Pessoal</span>
+        </div>
+        <p>
+          App que recebe planilha bagunçada e devolve base limpa: normaliza texto, converte data
+          BR → ISO, detecta CPF/CNPJ/CEP e aponta o que ficou inconsistente. Nasceu da dor real
+          de consolidar bases do Detran.
+        </p>
+        <span class="metric">✔ detecção de CPF, CNPJ e CEP</span>
+        <div class="stack"><span>Python</span><span>pandas</span><span>openpyxl</span></div>
+      </article>
+
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:46px;margin-bottom:20px">
+      <div class="eyebrow">Também no GitHub</div>
+      <h2 style="font-size:1.15rem">Outros projetos</h2>
+    </div>
+    <div class="mini-grid reveal">
+      <div class="mini"><h4>Otimiza PC</h4><p>Script de limpeza e manutenção do Windows com relatório do que foi liberado.</p></div>
+      <div class="mini"><h4>Fractal Explorer</h4><p>Explorador de fractais com zoom profundo e exportação em alta resolução.</p></div>
+      <div class="mini"><h4>Five Burger</h4><p>Site institucional completo com animações, responsivo e publicado.</p></div>
+      <div class="mini"><h4>Assistente de IA</h4><p>Integração com LLM para consultas em linguagem natural sobre bases internas.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="section-label">Sobre mim</div>
-    <div class="section-title">Quem sou eu</div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>Sou estudante de Ciência da Computação na Universidade Cruzeiro do Sul (prevvisão: Dez/2026) com experiência prática em automação de processos, desenvolvimento Python e inteligência artificial.</p>
-        <p>No DETRAN-SP, desenvolvi bots de automação com Python, Selenium e OCR que reduziram processos de horas para minutos. Tenho projetos em cibersegurança, desenvolvimento de jogos e criação de APIs.</p>
-        <p>Acredito que a tecnologia existe para simplificar o trabalho humano — e meu objetivo é construir soluções que façam exatamente isso.</p>
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Stack</div>
+      <h2>O que eu uso — e há quanto tempo</h2>
+      <p>Sem listar 40 tecnologias para fingir senioridade. É o que eu realmente escrevo.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-box reveal">
+        <h4>3 anos</h4>
+        <div class="itens">
+          <span><b>Python</b></span><span><b>JavaScript</b></span><span><b>HTML5</b></span>
+          <span><b>CSS3</b></span><span>React</span><span>Flask</span><span>FastAPI</span><span>Git</span>
+        </div>
       </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <div class="number">3+</div>
-          <div class="label">Anos de experiência</div>
+      <div class="stack-box reveal">
+        <h4>1 ano</h4>
+        <div class="itens">
+          <span><b>SQL</b></span><span><b>MySQL</b></span><span>Modelagem de dados</span>
+          <span>PostgreSQL</span><span><b>TypeScript</b></span>
         </div>
-        <div class="stat-card">
-          <div class="number">15+</div>
-          <div class="label">Projetos entregues</div>
+      </div>
+      <div class="stack-box reveal">
+        <h4>8 meses</h4>
+        <div class="itens">
+          <span>Java</span><span>C</span><span>C++</span><span>C#</span><span>Rust</span>
+          <span>COBOL/JCL</span><span>Node.js</span>
         </div>
-        <div class="stat-card">
-          <div class="number">5K+</div>
-          <div class="label">Linhas de código</div>
+      </div>
+      <div class="stack-box reveal">
+        <h4>Dados</h4>
+        <div class="itens">
+          <span>pandas</span><span>openpyxl</span><span>SQLite</span><span>Estatística aplicada</span>
+          <span>ETL</span><span>Dashboards</span>
         </div>
-        <div class="stat-card">
-          <div class="number">7</div>
-          <div class="label">Certificações</div>
+      </div>
+      <div class="stack-box reveal">
+        <h4>Automação &amp; OCR</h4>
+        <div class="itens">
+          <span>Playwright</span><span>Selenium</span><span>PyAutoGUI</span><span>PyMuPDF</span>
+          <span>Tesseract</span><span>RapidOCR</span><span>PySide6</span>
+        </div>
+      </div>
+      <div class="stack-box reveal">
+        <h4>Infra &amp; qualidade</h4>
+        <div class="itens">
+          <span>Docker</span><span>Linux</span><span>AWS</span><span>Azure</span><span>pytest</span>
+          <span>GitHub Actions</span><span>CI</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-label">Projetos</div>
-    <div class="section-title">Trabalhos em destaque</div>
-    <div class="projects-grid">
-
-      <!-- PRISM -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title">🎮 PRISM CS2 Cheat</div>
-          <span class="project-badge badge-purple">C# · Game Hacking</span>
-        </div>
-        <p class="project-desc">Software de memory reading para Counter-Strike 2 com interface Neverlose-style. Implementa Aimbot externo (via mouse_event), ESP (box/snapline/health bar), SkinChanger com 2.106 skins, Triggerbot e Bhop. Lê e escreve memória do processo CS2 em tempo real via PInvoke.</p>
-        <div class="project-tech">
-          <span class="tech-tag">C#</span>
-          <span class="tech-tag">.NET 6</span>
-          <span class="tech-tag">ReadProcessMemory</span>
-          <span class="tech-tag">mouse_event</span>
-          <span class="tech-tag">GDI+ Overlay</span>
-          <span class="tech-tag">JSON Config</span>
-        </div>
-        <div class="project-proof">
-          <strong>Prova:</strong> 4 arquivos C#, 3 scripts de build, 53 bugs corrigidos, 2.106 skins mapeadas via API ByMykel. Interface com 5 abas (Aimbot, Trigger, ESP, Skins, Misc). Funciona apenas em modo -insecure com bots.
-        </div>
-      </div>
-
-      <!-- RPA DETRAN -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title">🤖 RPA Detran Bot</div>
-          <span class="project-badge badge-green">Python · Automação</span>
-        </div>
-        <p class="project-desc">Bot de automação que extrai dados de PDFs escaneados do DETRAN-SP usando OCR (Tesseract + EasyOCR). Processa documentos oficiais, extrai Nome, Registro, SEI e PA, e gera planilhas Excel formatadas. Interface GUI com PySide6 e tema dark.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">PyMuPDF</span>
-          <span class="tech-tag">Tesseract</span>
-          <span class="tech-tag">EasyOCR</span>
-          <span class="tech-tag">PySide6</span>
-          <span class="tech-tag">openpyxl</span>
-        </div>
-        <div class="project-proof">
-          <strong>Prova:</strong> v3 com OCR cascata inteligente, rotação automática de PDFs invertidos, extração de 4 campos obrigatórios. Testado com 41 PDFs reais. GUI com drag-and-drop, barra de progresso e Excel automático.
-        </div>
-      </div>
-
-      <!-- AI ASSISTANT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title">🧠 AI Assistant (Hermes)</div>
-          <span class="project-badge badge-accent">IA · Automação</span>
-        </div>
-        <p class="project-desc">Assistente de IA integrado ao Discord com personalidade própria. Executa tarefas reais: gera código, cria sites, processa dados, gerencia cron jobs, pesquisa na web e interage via linguagem natural. Cada sessão é persistente com memória de longo prazo.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Hermes Agent</span>
-          <span class="tech-tag">Discord API</span>
-          <span class="tech-tag">Selenium</span>
-          <span class="tech-tag">Playwright</span>
-          <span class="tech-tag">Cloudflare Tunnel</span>
-        </div>
-        <div class="project-proof">
-          <strong>Prova:</strong> Roda 24/7 em servidor Linux. Processa comandos complexos (criação de sites, bots, APIs), mantém contexto entre sessões, executa código Python real, e gerencia múltiplos projetos simultaneamente.
-        </div>
-      </div>
-
-      <!-- PDF EXTRACTOR -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title">📄 PDF Extractor API</div>
-          <span class="project-badge badge-orange">FastAPI · OCR</span>
-        </div>
-        <p class="project-desc">API REST que extrai campos estruturados de PDFs escaneados usando OCR. Endpoint para upload de PDFs, extração de Nome, Registro, SEI e PA, com interface web dark para upload via drag-and-drop e processamento em lote.</p>
-        <div class="project-tech">
-          <span class="tech-tag">FastAPI</span>
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">PyMuPDF</span>
-          <span class="tech-tag">OCR</span>
-          <span class="tech-tag">HTML/CSS/JS</span>
-        </div>
-        <div class="project-proof">
-          <strong>Prova:</strong> 11/11 testes passando. Interface dark com drag-and-drop, processamento em lote, histórico de uploads. Porta 8000, túnel localtunnel para acesso remoto.
-        </div>
-      </div>
-
-      <!-- FIVE BURGER -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title">🍔 Five Burger</div>
-          <span class="project-badge badge-green">Web Design</span>
-        </div>
-        <p class="project-desc">Site institucional para hamburgueria com design system "O Braseiro". Hero animado, menu interativo, galera de fotos, e footer com dados reais. Design dark com tema de carvão e chama laranja.</p>
-        <div class="project-tech">
-          <span class="tech-tag">HTML5</span>
-          <span class="tech-tag">CSS3</span>
-          <span class="tech-tag">JavaScript</span>
-          <span class="tech-tag">GSAP</span>
-          <span class="tech-tag">Lenis</span>
-        </div>
-        <div class="project-proof">
-          <strong>Prova:</strong> Site ao vivo com HTTP 200, sem erros no console, imagens reais do cardápio, dados de contato autenticados, e animações de scroll com IntersectionObserver.
-        </div>
-      </div>
-
-      <!-- SEI AUDITORIA -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title">🔍 Auditoria SEI Bot</div>
-          <span class="project-badge badge-accent">Selenium · Automação</span>
-        </div>
-        <p class="project-desc">Bot que audita processos no sistema SEI do DETRAN-SP. Navega automaticamente pela interface web, verifica histórico de andamento de cada processo, identifica se passou pela DFT ou AEDJ, e gera planilhas Excel com o resultado da auditoria.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Selenium</span>
-          <span class="tech-tag">Chrome DevTools</span>
-          <span class="tech-tag">openpyxl</span>
-          <span class="tech-tag">tkinter</span>
-        </div>
-        <div class="project-proof">
-          <strong>Prova:</strong> Processou 1.296 processos da DPS e 839 da DPCA. Modo TURBO com CDP para reduzir tempo. Gera planilha com abas separadas por mesa (DPS/DPCA) e por tipo (DFT/AEDJ).
-        </div>
-      </div>
-
+<section id="experiencia">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Trajetória</div>
+      <h2>Experiência</h2>
     </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-label">Competências</div>
-    <div class="section-title">Skills técnicas</div>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h3>Linguagens & Frameworks</h3>
-        <ul>
-          <li>Python (intermediário-avançado)</li>
-          <li>JavaScript / HTML5 / CSS3</li>
-          <li>Java</li>
-          <li>C# (.NET 6)</li>
-          <li>FastAPI / Flask</li>
-          <li>PySide6 / tkinter</li>
-        </ul>
+    <div class="tl">
+      <div class="tl-item reveal">
+        <h4>DETRAN-SP <span>— Preparador de Dados</span></h4>
+        <div class="quando">jun/2026 – atual</div>
+        <p>
+          Bots RPA em Python (PyAutoGUI e Selenium) para triagem e encaminhamento de processos de
+          suspensão de CNH em três sistemas; pipeline de OCR para ofícios escaneados; auditoria
+          automatizada no SEI; consolidação de bases Excel com mais de 14 mil registros.
+        </p>
       </div>
-      <div class="skill-group">
-        <h3>Ferramentas & Plataformas</h3>
-        <ul>
-          <li>Git & GitHub</li>
-          <li>Selenium / Playwright</li>
-          <li>OCR (Tesseract, EasyOCR)</li>
-          <li>Docker</li>
-          <li>Cloudflare Tunnels</li>
-          <li>Linux / Windows</li>
-        </ul>
+      <div class="tl-item reveal">
+        <h4>Hospital Notre Dame Intermédica <span>— Jovem Aprendiz Administrativo</span></h4>
+        <div class="quando">abr/2024 – 2025</div>
+        <p>
+          Organização, classificação e digitalização de documentos em alto volume, com padronização
+          de indexação e apoio à conferência de dados.
+        </p>
       </div>
-      <div class="skill-group">
-        <h3>Áreas de Conhecimento</h3>
-        <ul>
-          <li>Automação de Processos (RPA)</li>
-          <li>Cibersegurança</li>
-          <li>Inteligência Artificial</li>
-          <li>Machine Learning</li>
-          <li>Análise de Dados</li>
-          <li>Redes de Computadores</li>
-        </ul>
+      <div class="tl-item reveal">
+        <h4>Brasil Game Show <span>— Suporte Técnico Freelancer</span></h4>
+        <div class="quando">out/2023</div>
+        <p>Manutenção, configuração e diagnóstico de hardware e software em evento de alta demanda.</p>
+      </div>
+      <div class="tl-item reveal">
+        <h4>Universidade Cruzeiro do Sul <span>— Bacharelado em Ciência da Computação</span></h4>
+        <div class="quando">conclusão em dez/2026</div>
+        <p>
+          Formação com foco em engenharia de software, banco de dados e aprendizado de máquina.
+          Inglês avançado (B2) e certificações em Cibersegurança (Google/Coursera), Deep Learning
+          (Coursera) e IA Aplicada (FIAP).
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-label">Experiência</div>
-    <div class="section-title">Trajetória profissional</div>
-    <div class="exp-timeline">
-      <div class="exp-item current">
-        <div class="exp-role">Preparador de Dados</div>
-        <div class="exp-company">DETRAN-SP</div>
-        <div class="exp-date">Atual</div>
-        <div class="exp-desc">Automação de processos com Python, OCR e Selenium. Desenvolvimento de bots para extração de dados de PDFs escaneados. Geração de relatórios e planilhas automatizadas.</div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-role">Jovem Aprendiz Administrativo</div>
-        <div class="exp-company">Hospital Notre Dame Intermédica</div>
-        <div class="exp-date">Abr 2024 – 2025</div>
-        <div class="exp-desc">Organização e digitalização de documentos. Gerenciamento de dados e suporte técnico-operacional às equipes internas.</div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-role">Suporte Técnico Especializado</div>
-        <div class="exp-company">Brasil Game Show (BGS) — Freelancer</div>
-        <div class="exp-date">Out 2023</div>
-        <div class="exp-desc">Manutenção, configuração e suporte de hardware/software. Resolução de problemas técnicos e suporte direto aos usuários.</div>
+<section id="contato" style="padding-bottom:40px">
+  <div class="wrap">
+    <div class="contato reveal">
+      <h2>Buscando a primeira vaga como dev júnior</h2>
+      <p>
+        Backend, dados ou automação — em São Paulo ou remoto. Se você tem um problema que hoje é
+        resolvido por planilha e boa vontade, é exatamente o tipo de coisa que eu construo.
+      </p>
+      <div class="links">
+        <a class="btn primary" href="mailto:theus.magm@gmail.com">theus.magm@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/matheus-mendes-dev/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/ManowTheusZica" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="tel:+5511961908008">(11) 96190-8008</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CERTIFICATIONS -->
-<section id="certs">
-  <div class="container">
-    <div class="section-label">Certificações</div>
-    <div class="section-title">Cursos concluídos</div>
-    <div class="certs-grid">
-      <div class="cert-card">
-        <div class="icon">🛡️</div>
-        <div class="name">Google Cybersecurity</div>
-        <div class="issuer">Google · Concluído</div>
-      </div>
-      <div class="cert-card">
-        <div class="icon">🧠</div>
-        <div class="name">Deep Learning Specialization</div>
-        <div class="issuer">Coursera</div>
-      </div>
-      <div class="cert-card">
-        <div class="icon">🤖</div>
-        <div class="name">Google IA</div>
-        <div class="issuer">Google</div>
-      </div>
-      <div class="cert-card">
-        <div class="icon">📊</div>
-        <div class="name">IA Aplicada</div>
-        <div class="issuer">FIAP</div>
-      </div>
-      <div class="cert-card">
-        <div class="icon">💬</div>
-        <div class="name">Chatbots</div>
-        <div class="issuer">FIAP</div>
-      </div>
-      <div class="cert-card">
-        <div class="icon">☁️</div>
-        <div class="name">Gestão de Infra & Cloud</div>
-        <div class="issuer">FIAP</div>
-      </div>
-      <div class="cert-card">
-        <div class="icon">🔀</div>
-        <div class="name">Git e GitHub</div>
-        <div class="issuer">FIAP</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="contact-card">
-      <h2>Vamos conversar?</h2>
-      <p>Estou aberto a oportunidades de estágio, projetos freelance e colaborações técnicas.</p>
-      <div class="contact-links">
-        <a href="mailto:theus.magm@gmail.com" class="contact-link">📧 theus.magm@gmail.com</a>
-        <a href="tel:+5511961908008" class="contact-link">📱 (11) 96190-8008</a>
-        <a href="https://github.com/theusmagm" class="contact-link" target="_blank">💻 GitHub</a>
-        <a href="https://linkedin.com/in/matheusmendes" class="contact-link" target="_blank">🔗 LinkedIn</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p>© 2026 Matheus Mendes · Jardim Anália Franco, São Paulo – SP</p>
-  </div>
+<footer class="wrap">
+  <span>© 2026 Matheus Mendes — feito à mão, em HTML, CSS e JavaScript.</span>
+  <span class="mono" style="font-size:12px;color:var(--dim)">São Paulo · SP · Brasil</span>
 </footer>
 
+<script>
+// filtro de projetos
+const chips = document.querySelectorAll('.chip');
+const cards = document.querySelectorAll('.card');
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('ativo'));
+    chip.classList.add('ativo');
+    const alvo = chip.dataset.f;
+    cards.forEach(card => {
+      const cats = (card.dataset.cat || '').split(' ');
+      const mostra = alvo === 'todos' || cats.includes(alvo);
+      card.style.display = mostra ? '' : 'none';
+    });
+  });
+});
+
+// revelar ao rolar
+const io = new IntersectionObserver((entradas) => {
+  entradas.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
